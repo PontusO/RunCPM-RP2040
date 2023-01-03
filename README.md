@@ -1,23 +1,16 @@
 # RunCPM_RPi_Pico
-RunCPM for the Raspberry Pico
+RunCPM for the Challenger RP2040 SD/RTC board
 
+<img src="https://usercontent.one/wp/ilabs.se/wp-content/uploads/2022/10/iso-1-2048.jpg" alt="Challenger_RP2040_SD_RTC" width="800"/>
 ![RunCPM_Pico_BootUpScreen](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/GL20221026_RP2040_262.jpg?raw=true)
 
-Is using much of the RunCPM-Code for a Arduino-DUE (also HostOS 0x01 from the .ino)
+Is using much of the RunCPM-Code for an Arduino-DUE (also HostOS 0x01 from the .ino)
 
 does need
-- SDCard interface with SPI
-```
-   SD card attached to SPI bus as follows:
-   // Arduino-pico core
-   MISO - Pin 21 - GPIO 16
-   MOSI - Pin 25 - GPIO 19
-   CS   - Pin 22 - GPIO 17
-   SCK  - Pin 24 - GPIO 18
-```
+
 - RP2040 Hardware-/Board Support https://github.com/earlephilhower/arduino-pico
 
-RunCPM for Pico can be compiled in the Arduino-IDE up to 250Mhz<br/>
+RunCPM for the Challenger board must be compiled in the Arduino-IDE up to 250Mhz<br/>
 With 275Mhz or 300Mhz RunCPM does not start up.
 
 ```
@@ -70,26 +63,3 @@ comment out the warning (because we use File32 instead)
 
 ### see also (in german):<br>
 https://forum.classic-computing.de/forum/index.php?thread/25805-runcpm-auf-dem-raspberry-pi-pico<br>
-
-![RunCPM_Pico_FrontView](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/RunCPM_Pico_FrontView_1024px.jpg?raw=true)
-
-![RunCPM_Pico_RearView](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/RunCPM_Pico_RearView_1024px.jpg?raw=true)
-
-![RunCPM_Pico_SDCardConnect](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/RunCPM_Pico_SDConnect_1024px.jpg?raw=true)
-
-![RunCPM_Pico_ResetButton](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/RunCPM_Pico_ResetButton_1024px.jpg?raw=true)
-<br><br>
-### SD-Card-Init problem:<br>
-If you got problems with the init of the SD-Card<br>
-then you could try to add duplicate Power (3.3v green) and GND (blue) cables<br>
-or an additional cable connection to the GND near the SPI pins (black)<br>
-
-![SDCard_init_problem](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/Pico_RunCPM_more_Power_GND.jpg?raw=true)<br><br>
-
-### ATTENTION:<br>
-Please connect your SDCard Reader/Writer (if it has a 5v->3.3 StepDown-Converter) to 5V,<br>
-because the 3.3V (OUT) rail at Pin 38 may be insuffcient to deliver enough 3.3V for the Pico and the SDCard Read/Writer :(
-<br>
-
-![RunCPM_Pico_SPI_SDCard](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/RunCPM_Pico_SPI_SDCard.jpg?raw=true)
-
