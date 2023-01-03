@@ -1,8 +1,8 @@
 # RunCPM_RPi_Pico
 RunCPM for the Challenger RP2040 SD/RTC board
 
-<img src="https://usercontent.one/wp/ilabs.se/wp-content/uploads/2022/10/iso-1-2048.jpg" alt="Challenger_RP2040_SD_RTC" width="800"/>
-![RunCPM_Pico_BootUpScreen](https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/GL20221026_RP2040_262.jpg?raw=true)
+<img src="https://usercontent.one/wp/ilabs.se/wp-content/uploads/2022/10/iso-1-2048.jpg" alt="Challenger_RP2040_SD_RTC" width="1024"/>
+<img src="https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/GL20221026_RP2040_262.jpg" alt="RunCPM_Pico_BootUpScreen"/>
 
 Is using much of the RunCPM-Code for an Arduino-DUE (also HostOS 0x01 from the .ino)
 
