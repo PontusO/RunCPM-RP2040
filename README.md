@@ -46,13 +46,10 @@ compiler.cpp_warning_flags=-Wno-register -Werror=return-type
 ```
 <br>
 and change the compiler.cpp.flags line to
-
 ```
 compiler.cpp.flags=-c {compiler.cpp_warning_flags} {compiler.defines} {compiler.flags} -MMD {compiler.includes} {build.flags.rtti} -std=gnu++17 -g -pipe
 ```
 <br>
-<br>
-
 ```
 In
 C:\Users\guido\Documents\Arduino\libraries\SdFat\src\SDFat.h
@@ -63,3 +60,6 @@ comment out the warning (because we use File32 instead)
 
 ### see also (in german):<br>
 https://forum.classic-computing.de/forum/index.php?thread/25805-runcpm-auf-dem-raspberry-pi-pico<br>
+
+### RTC Support
+Outside the already included GPIO support (using BDOS calls) this version also supports the on board RTC by emulating the RTC72421. Support software and information about the RTC can be found here: https://www.cpcwiki.eu/index.php/URTC-8_Universal_RTC_for_Z80_computers
