@@ -2,7 +2,7 @@
 RunCPM for the Challenger RP2040 SD/RTC board
 
 <img src="https://usercontent.one/wp/ilabs.se/wp-content/uploads/2022/10/iso-1-2048.jpg" alt="Challenger_RP2040_SD_RTC" width="1024"/>
-<img src="https://github.com/guidol70/RunCPM_RPi_Pico/raw/main/more_pictures/GL20221026_RP2040_262.jpg" alt="RunCPM_Pico_BootUpScreen"/>
+<img src="img/minicom-runcpm.png" alt="RunCPM_Pico_BootUpScreen"/>
 
 Is using much of the RunCPM-Code for an Arduino-DUE (also HostOS 0x01 from the .ino)
 
@@ -15,7 +15,7 @@ With 275Mhz or 300Mhz RunCPM does not start up.
 
 ```
 34.78% speedup when you compile with -O3 option (at 250Mhz)
-around 6.4 times faster - 25.6Mhz - 
+around 6.4 times faster - 25.6Mhz -
 than a Z80 with 4Mhz (Philips P2500 Z80@4MHz) :
 ```
 
