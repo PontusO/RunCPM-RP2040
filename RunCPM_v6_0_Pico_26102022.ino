@@ -3,12 +3,7 @@
 
   This example shows how to read and write data to and from an SD card file
   The circuit:
-   SD card attached to SPI bus as follows:
-   // Arduino-pico core
-   ** MISO - Pin 21 - GPIO 16
-   ** MOSI - Pin 25 - GPIO 19
-   ** CS   - Pin 22 - GPIO 17
-   ** SCK  - Pin 24 - GPIO 18
+   SD card attached to SPI bus as described in hardware abstraction layer
 */
 
 // only AVR and ARM CPU
@@ -110,15 +105,23 @@ void setup(void) {
   _sys_deletefile((uint8 *)LogName);
 #endif
 
+#if defined(HW_PORTS_EMULATION_ENABLED)
+  setup_hw_ports();
+#endif
+
   _clrscr();
   _puts("CP/M Emulator \e[1mv" VERSION "\e[0m   by   \e[1mMarcelo  Dantas\e[0m\r\n");
-  _puts("----------------------------------------------\r\n");  
-  _puts("     running    on   Raspberry Pi [\e[1m Pico \e[0m]\r\n");
+  _puts("------------------------------------------------\r\n");  
+  _puts("     running    on   Challenger RP2040 [\e[1mSD/RTC\e[0m]\r\n");
+//  _puts("     running    on   Raspberry Pi [\e[1m Pico \e[0m]\r\n");
 //   _puts("     running    on   Raspberry Pi [\e[1mPico-W\e[0m]\r\n");
-  _puts("     compiled with   RP2040       [\e[1mv2.6.2\e[0m] \r\n");  
-  _puts("               and   ESP8266SdFat [\e[1mv2.1.1\e[0m] \r\n");
-//   _puts("               and   SDFat        [\e[1mv2.2.0\e[0m] \r\n");  
-  _puts("----------------------------------------------\r\n");
+  _puts("     compiled with   RP2040            [\e[1mv2.6.2\e[0m] \r\n");  
+  _puts("               and   ESP8266SdFat      [\e[1mv2.1.1\e[0m] \r\n");
+//   _puts("               and   SDFat        [\e[1mv2.2.0\e[0m] \r\n");
+#if defined(HW_PORTS_EMULATION_ENABLED)
+  _puts("               and   emulated HW ports [\e[1mv0.0.1\e[0m] \r\n");
+#endif
+  _puts("------------------------------------------------\r\n");
   _puts("Revision             [\e[1m");
   _puts(GL_REV);
   _puts("\e[0m]\r\n");
@@ -163,11 +166,12 @@ void setup(void) {
 // =========================================================================================
 // Redefine SPI-Pins - if needed : (SPI.) = SPI0 / (SPI1.) = SPI1
 // =========================================================================================
+#if !defined(CHALLENGER_RP2040_SDRTC_H)
   SPI.setRX(16);   // MISO
   SPI.setCS(17);   // Card Select
   SPI.setSCK(18);  // Clock
   SPI.setTX(19);   // MOSI
-
+#endif
 // =========================================================================================
 // Setup SD card writing settings
 // Info at: https://github.com/greiman/SdFat/issues/285#issuecomment-823562829
@@ -187,9 +191,9 @@ void setup(void) {
 // =========================================================================================
 #define SDFAT_FILE_TYPE 1           // Uncomment for Due, Teensy or RPi Pico
 #define ENABLE_DEDICATED_SPI 1      // Dedicated SPI 1=ON 0=OFF
-#define SDMHZ_TXT "19"              // for outputing SDMHZ-Text
+#define SDMHZ_TXT "32"              // for outputing SDMHZ-Text
 // normal is 12Mhz because of https://www.pschatzmann.ch/home/2021/03/14/rasperry-pico-with-the-sdfat-library/
-#define SDMHZ 19                    // setting 19 Mhz for SPI-Bus
+#define SDMHZ 32                    // setting 19 Mhz for SPI-Bus
 //#define SS 17
 // select required SPI-Bus : (&SPI) = SPI0 / (&SPI1) = SPI1
 #define SD_CONFIG SdSpiConfig(SS, DEDICATED_SPI, SD_SCK_MHZ(SDMHZ), &SPI1)

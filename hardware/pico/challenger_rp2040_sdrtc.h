@@ -22,33 +22,17 @@ SdFat SD;
 #define BOARD "Challenger RP2040 SD/RTC"
 
 // =========================================================================================
-// SPIINIT !!ONLY!! for ESP32-boards
-// #define SPIINIT Clock, MISO, MOSI, Card-Select
-// =========================================================================================
-#define SPIINIT 18,16,19,SS
-#define SPIINIT_TXT "18,16,19,17"
-
-// =========================================================================================
 // Pin Documentation
 // =========================================================================================
-// Normal RPi Pico
-// MISO - Pin 21 - GPIO 16
-// MOSI - Pin 25 - GPIO 19
-// CS   - Pin 22 - GPIO 17
-// SCK  - Pin 24 - GPIO 18
-
-// MicroSD Pin Definition for RC2040 board
-// Pin 6 - GPIO 4 MISO
-// Pin 7 - GPIO 5 Chip/Card-Select (CS / SS)
-// Pin 4 - GPIO 2 Clock (SCK)
-// Pin 5 - GPIO 3 MOSI
+// Challenger RP2040 SD/RTC (SD Card slot, default config from bsp)
+// MISO - GPIO 12
+// MOSI - GPIO 11
+// CS   - GPIO 9
+// SCK  - GPIO 10
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <MCP79412RTC.h>
-#include <TimeLib.h>
 
-MCP79412RTC RTC(false);
 /**
  * Definition of the standard CP/M real time clock chip and mapping to the
  * challenger_rp2040_sdrtc on board MCP79410.
@@ -171,7 +155,7 @@ static bool i2cWrite(uint8_t reg, uint8_t value) {
 /**
  * Initialization of the MCP79410.
  */
-void mcp_initialize() {
+static void mcp_initialize() {
   if (!mcp79410_initialized) {
     mcp79410_initialized = true;
     Wire.begin();
@@ -188,67 +172,54 @@ void mcp_initialize() {
  * Getter and setters for the hardware registers of the RTC
  */
 uint8_t get_rtc1sec() {
-  mcp_initialize();
   return i2cRead(RTCSEC) & 0x0f;
 }
 
 uint8_t get_rtc10sec() {
-  mcp_initialize();
   return (i2cRead(RTCSEC) >> 4) & 0x07;
 }
 
 uint8_t get_rtc1min() {
-  mcp_initialize();
   return i2cRead(RTCMIN) & 0x0f;
 }
 
 uint8_t get_rtc10min() {
-  mcp_initialize();
   return (i2cRead(RTCMIN) >> 4) & 0x07;
 }
 
 uint8_t get_rtc1hour() {
-  mcp_initialize();
   return i2cRead(RTCHOUR) & 0x0f;
 }
 
 uint8_t get_rtc10hour() {
-  mcp_initialize();
   return (i2cRead(RTCHOUR) >> 4) & 0x03;
 }
 
 uint8_t get_rtc1day() {
-  mcp_initialize();
   return i2cRead(RTCDAY) & 0x0f;
 }
 
 uint8_t get_rtc10day() {
-  mcp_initialize();
   return (i2cRead(RTCDAY) >> 4) & 0x03;
 }
 
 uint8_t get_rtc1month() {
-  mcp_initialize();
   return i2cRead(RTCMNTH) & 0x0f;
 }
 
 uint8_t get_rtc10month() {
-  mcp_initialize();
   return (i2cRead(RTCMNTH) >> 4) & 0x01;
 }
 
 uint8_t get_rtc1year() {
-  mcp_initialize();
   return i2cRead(RTCYEAR) & 0x0f;
 }
 
 uint8_t get_rtc10year() {
-  mcp_initialize();
   return (i2cRead(RTCYEAR) >> 4);
 }
 
 uint8_t get_rtcweek() {
-  mcp_initialize();
   return i2cRead(RTCWKDAY) & 0x07 - 1;
 }
 
@@ -268,79 +239,66 @@ uint8_t get_rtccrtlF() {
 // Setters
 //
 void set_rtc1sec(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCSEC) & 0xf0 | (Value & 0x0f);
   i2cWrite(RTCSEC, tv);
 }
 
 void set_rtc10sec(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCSEC) & 0x8f | (Value << 4) & 0x70;
   i2cWrite(RTCSEC, tv);
 }
 
 void set_rtc1min(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCMIN) & 0xf0 | (Value & 0x0f);
   i2cWrite(RTCMIN, tv);
 }
 
 void set_rtc10min(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCMIN) & 0x0f | (Value << 4) & 0xf0;
   i2cWrite(RTCMIN, tv);
 }
 
 void set_rtc1hour(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCHOUR) & 0xf0 | (Value & 0x0f);
   i2cWrite(RTCHOUR, tv);
 }
 
 void set_rtc10hour(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCHOUR) & 0xcf | (Value << 4) & 0x30;
   i2cWrite(RTCHOUR, tv);
 }
 
 void set_rtc1day(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCDAY) & 0xf0 | (Value & 0x0f);
   i2cWrite(RTCDAY, tv);
 }
 
 void set_rtc10day(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCDAY) & 0x0f | (Value << 4) & 0xf0;
   i2cWrite(RTCDAY, tv);
 }
 
 void set_rtc1month(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCMNTH) & 0xf0 | (Value & 0x0f);
   i2cWrite(RTCMNTH, tv);
 }
 
 void set_rtc10month(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCMNTH) & 0x2f | (Value << 4) & 0xf0;
   i2cWrite(RTCMNTH, tv);
 }
 
 void set_rtc1year(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCYEAR) & 0xf0 | (Value & 0x0f);
   i2cWrite(RTCYEAR, tv);
 }
 
 void set_rtc10year(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCYEAR) & 0x0f | (Value << 4) & 0xf0;
   i2cWrite(RTCYEAR, tv);
 }
 
 void set_rtcweek(const uint32 Value) {
-  mcp_initialize();
   uint8_t tv = i2cRead(RTCWKDAY) & 0xf8 | ((Value + 1) & 0x07);
   i2cWrite(RTCWKDAY, tv);
 }
@@ -432,6 +390,10 @@ void hw_port_write(const uint32 Port, const uint32 Value) {
       set_rtcweek(Value);
       break;
   }
+}
+
+void setup_hw_ports() {
+  mcp_initialize();
 }
 
 #endif
