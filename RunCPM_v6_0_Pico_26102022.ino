@@ -119,7 +119,7 @@ void setup(void) {
   _puts("               and   ESP8266SdFat      [\e[1mv2.1.1\e[0m] \r\n");
 //   _puts("               and   SDFat        [\e[1mv2.2.0\e[0m] \r\n");
 #if defined(HW_PORTS_EMULATION_ENABLED)
-  _puts("               and   emulated HW ports [\e[1mv0.0.1\e[0m] \r\n");
+  _puts("               and   emulated HW ports [\e[1mv" HW_PORTS_EMU_VERSION "\e[0m] \r\n");
 #endif
   _puts("------------------------------------------------\r\n");
   _puts("Revision             [\e[1m");
