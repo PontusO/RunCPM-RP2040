@@ -36,50 +36,6 @@ SdFat SD;
 #include <Wire.h>
 
 /**
- * Definition of the standard CP/M real time clock chip and mapping to the
- * challenger_rp2040_sdrtc on board MCP79410.
- * We must assume that any register can be accessed in any order, therefore
- * we must read the associated data everytime.
- *
- * RTC registers
- *
- * rtc1sec    .db	RTCBASE+00h	; 1 second digit
- * rtc10sec   .db	RTCBASE+01h	; 10 second digit
- * rtc1min	  .db	RTCBASE+02h	; 1 minute digit
- * rtc10min	  .db	RTCBASE+03h	; 10 minute digit
- * rtc1hour	  .db	RTCBASE+04h	; 1 hour digit
- * rtc10hour  .db	RTCBASE+05h	; 10 hour digit (also AM/PM indicator)
- * rtc1day		.db	RTCBASE+06h	; 1 day digit
- * rtc10day	  .db	RTCBASE+07h	; 10 day digit
- * rtc1month	.db	RTCBASE+08h	; 1 month digit
- * rtc10month	.db	RTCBASE+09h	; 10 month digit
- * rtc1year	  .db	RTCBASE+0Ah	; 1 year digit
- * rtc10year	.db	RTCBASE+0Bh	; 10 year digit
- * rtcweek		.db	RTCBASE+0Ch	; day of week
- * rtccrtlD	  .db	RTCBASE+0Dh	; control register D
- * rtcctrlE	  .db	RTCBASE+0Eh	; control register E
- * rtcctrlF	  .db	RTCBASE+0Fh	; control register F
- *
- */
-#define v_RTCBASE     0xb0
-#define v_rtc1sec     (v_RTCBASE + 0x00)
-#define v_rtc10sec    (v_RTCBASE + 0x01)
-#define v_rtc1min     (v_RTCBASE + 0x02)
-#define v_rtc10min    (v_RTCBASE + 0x03)
-#define v_rtc1hour    (v_RTCBASE + 0x04)
-#define v_rtc10hour   (v_RTCBASE + 0x05)
-#define v_rtc1day     (v_RTCBASE + 0x06)
-#define v_rtc10day    (v_RTCBASE + 0x07)
-#define v_rtc1month   (v_RTCBASE + 0x08)
-#define v_rtc10month  (v_RTCBASE + 0x09)
-#define v_rtc1year    (v_RTCBASE + 0x0a)
-#define v_rtc10year   (v_RTCBASE + 0x0b)
-#define v_rtcweek     (v_RTCBASE + 0x0c)
-#define v_rtccrtlD    (v_RTCBASE + 0x0d)
-#define v_rtccrtlE    (v_RTCBASE + 0x0e)
-#define v_rtccrtlF    (v_RTCBASE + 0x0f)
-
-/**
  * GPIO Interface
  *
  * The GPIO interface registers are used to map the RP2040 pins and functions
@@ -203,6 +159,50 @@ static const uint32_t cpmPin2RP2040[] = {
 };
 #define NUMBER_OF_CPM_PINS    21
 #define INVALID_CPM_PIN       0xff
+
+/**
+ * Definition of the standard CP/M real time clock chip and mapping to the
+ * challenger_rp2040_sdrtc on board MCP79410.
+ * We must assume that any register can be accessed in any order, therefore
+ * we must read the associated data everytime.
+ *
+ * RTC registers
+ *
+ * rtc1sec    .db	RTCBASE+00h	; 1 second digit
+ * rtc10sec   .db	RTCBASE+01h	; 10 second digit
+ * rtc1min	  .db	RTCBASE+02h	; 1 minute digit
+ * rtc10min	  .db	RTCBASE+03h	; 10 minute digit
+ * rtc1hour	  .db	RTCBASE+04h	; 1 hour digit
+ * rtc10hour  .db	RTCBASE+05h	; 10 hour digit (also AM/PM indicator)
+ * rtc1day		.db	RTCBASE+06h	; 1 day digit
+ * rtc10day	  .db	RTCBASE+07h	; 10 day digit
+ * rtc1month	.db	RTCBASE+08h	; 1 month digit
+ * rtc10month	.db	RTCBASE+09h	; 10 month digit
+ * rtc1year	  .db	RTCBASE+0Ah	; 1 year digit
+ * rtc10year	.db	RTCBASE+0Bh	; 10 year digit
+ * rtcweek		.db	RTCBASE+0Ch	; day of week
+ * rtccrtlD	  .db	RTCBASE+0Dh	; control register D
+ * rtcctrlE	  .db	RTCBASE+0Eh	; control register E
+ * rtcctrlF	  .db	RTCBASE+0Fh	; control register F
+ *
+ */
+#define v_RTCBASE     0xb0
+#define v_rtc1sec     (v_RTCBASE + 0x00)
+#define v_rtc10sec    (v_RTCBASE + 0x01)
+#define v_rtc1min     (v_RTCBASE + 0x02)
+#define v_rtc10min    (v_RTCBASE + 0x03)
+#define v_rtc1hour    (v_RTCBASE + 0x04)
+#define v_rtc10hour   (v_RTCBASE + 0x05)
+#define v_rtc1day     (v_RTCBASE + 0x06)
+#define v_rtc10day    (v_RTCBASE + 0x07)
+#define v_rtc1month   (v_RTCBASE + 0x08)
+#define v_rtc10month  (v_RTCBASE + 0x09)
+#define v_rtc1year    (v_RTCBASE + 0x0a)
+#define v_rtc10year   (v_RTCBASE + 0x0b)
+#define v_rtcweek     (v_RTCBASE + 0x0c)
+#define v_rtccrtlD    (v_RTCBASE + 0x0d)
+#define v_rtccrtlE    (v_RTCBASE + 0x0e)
+#define v_rtccrtlF    (v_RTCBASE + 0x0f)
 
 /*
  * Address Register
